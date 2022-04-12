@@ -371,17 +371,19 @@ export default class Autosuggest extends Component {
   };
 
   onSuggestionMouseEnter = (event, { sectionIndex, itemIndex }) => {
-    this.updateHighlightedSuggestion(sectionIndex, itemIndex);
+    return
+    // NOTE(nfliu): we don't want anything to be updated via mouse hover
+    // this.updateHighlightedSuggestion(sectionIndex, itemIndex);
 
-    if (event.target === this.pressedSuggestion) {
-      this.justSelectedSuggestion = true;
-    }
+    // if (event.target === this.pressedSuggestion) {
+    //   this.justSelectedSuggestion = true;
+    // }
 
-    this.justMouseEntered = true;
+    // this.justMouseEntered = true;
 
-    setTimeout(() => {
-      this.justMouseEntered = false;
-    });
+    // setTimeout(() => {
+    //   this.justMouseEntered = false;
+    // });
   };
 
   highlightFirstSuggestion = () => {
@@ -432,7 +434,9 @@ export default class Autosuggest extends Component {
       this.onSuggestionsClearRequested();
     }
 
-    this.resetHighlightedSuggestion();
+    // NOTE(nfliu): when a suggestion is selected, we don't want to clear the highlighting,
+    // since we're hiding the HUD anyway.
+    // this.resetHighlightedSuggestion();
   };
 
   onSuggestionClick = (event) => {
@@ -481,10 +485,12 @@ export default class Autosuggest extends Component {
 
     this.setState({
       isFocused: false,
-      highlightedSectionIndex: null,
-      highlightedSuggestionIndex: null,
-      highlightedSuggestion: null,
-      valueBeforeUpDown: null,
+      // NOTE(nfliu): when the bar loses focus, we'd like it to maintain
+      // the highlighting information.
+      // highlightedSectionIndex: null,
+      // highlightedSuggestionIndex: null,
+      // highlightedSuggestion: null,
+      // valueBeforeUpDown: null,
       isCollapsed: !shouldRender,
     });
 
@@ -492,14 +498,16 @@ export default class Autosuggest extends Component {
   };
 
   onSuggestionMouseLeave = (event) => {
-    this.resetHighlightedSuggestion(false); // shouldResetValueBeforeUpDown
+    return
+    // NOTE(nfliu): we don't want anything to be updated via mouse hover
+    // this.resetHighlightedSuggestion(false); // shouldResetValueBeforeUpDown
 
-    if (
-      this.justSelectedSuggestion &&
-      event.target === this.pressedSuggestion
-    ) {
-      this.justSelectedSuggestion = false;
-    }
+    // if (
+    //   this.justSelectedSuggestion &&
+    //   event.target === this.pressedSuggestion
+    // ) {
+    //   this.justSelectedSuggestion = false;
+    // }
   };
 
   onSuggestionTouchStart = () => {
